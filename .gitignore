@@ -208,3 +208,7 @@ __marimo__/
 
 # MonkeyType
 monkeytype.sqlite3
+
+# Relatórios de testes
+relatorio.html
+assets/
