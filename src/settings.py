@@ -7,3 +7,10 @@ class Settings:
         self.screen_height = 800
         self.bg_color = (230, 230, 230)  # Cor de fundo (cinza claro)
         self.ship_speed = 1.5 # Velocidade da nave
+        
+        # Configurações dos projéteis
+        self.bullet_speed = 1.0 # Velocidade dos projéteis
+        self.bullet_width = 3 # Largura dos projéteis   
+        self.bullet_height = 15 # Altura dos projéteis
+        self.bullet_color = (60, 60, 60) # Cor dos projeteis
+        self.bullet_allowed = 1 # Número máximo de projéteis que podem existir na tela ao mesmo tempo
