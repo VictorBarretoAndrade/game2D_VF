@@ -11,7 +11,7 @@ from ship import Ship
 class AlienInvasion:
     """Gerencia o jogo e seus comportamentos."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construtor da classe que inicializa o jogo e cria os recursos básicos"""
         pygame.init()
         self.settings = Settings()
@@ -31,7 +31,7 @@ class AlienInvasion:
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
-    def create_fleet(self):
+    def create_fleet(self) -> None:
         """Cria uma frota de alienígenas."""
         # Cria um alienígena e calcula o número de alienígenas em uma linha
         # O espaçamento entre os alienígenas é igual a um alienígena
@@ -55,7 +55,7 @@ class AlienInvasion:
                 alien.rect.y = alien.y
                 self.aliens.add(alien)
 
-    def run_game(self):
+    def run_game(self) -> None:
         """Cria um laço de repetição para a tela sempre ficar visível até
         que o usuário decida fechar a janela."""
 

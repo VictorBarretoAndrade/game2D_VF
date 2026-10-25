@@ -1,7 +1,8 @@
 class Settings:
     """Classe que armazena todas as configurações do jogo."""
 
-    def __init__(self):
+    def __init__(self) -> None:
+
         # Configurações da tela
         self.screen_width = 1200
         self.screen_height = 800

@@ -1,11 +1,15 @@
 import pygame
 from pygame.sprite import Sprite
 
+from settings import Settings
+
 
 class Alien(Sprite):
     """Gerencia os alienígenas."""
 
-    def __init__(self, alien_invasion_screen, alien_invasion_settings):
+    def __init__(
+        self, alien_invasion_screen: pygame.Surface, alien_invasion_settings: Settings
+    ) -> None:
         """Inicializa o alienígena e define sua posição inicial."""
         # Chama o construtor da classe Sprite para inicializar o alienígena como um sprite
         super().__init__()
@@ -23,16 +27,16 @@ class Alien(Sprite):
         # Armazena a posição horizontal como float para permitir movimentos suaves
         self.x = float(self.rect.x)
 
-    def drawme(self):
+    def drawme(self) -> None:
         """Desenha o alienígena em sua posição atual."""
         self.screen.blit(self.image, self.rect)  # ('o que', 'onde')
 
-    def update(self):
+    def update(self) -> None:
         """Move o alienígena para a direita ou esquerda conforme a direção da frota."""
         self.x += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.x = self.x
 
-    def check_edges(self):
+    def check_edges(self) -> bool:
         """Retorna True se o alienígena estiver na borda da tela."""
         screen_rect = self.screen.get_rect()
         if self.rect.right >= screen_rect.right or self.rect.left <= 0:

@@ -1,13 +1,21 @@
 import pygame
 from pygame.sprite import Sprite
 
+from settings import Settings
+from ship import Ship
+
 
 # A classe Bullet herda de Sprite (HERANÇA), classe do Pygame que representa objetos visuais.
 # Ela gerencia os projéteis disparados pela nave: posição, movimento e aparência.
 class Bullet(Sprite):
     """Gerencia os projéteis disparados pela nave."""
 
-    def __init__(self, alien_invasion_screen, alien_invasion_settings, alien_invasion_ship):
+    def __init__(
+        self,
+        alien_invasion_screen: pygame.Surface,
+        alien_invasion_settings: Settings,
+        alien_invasion_ship: Ship,
+    ) -> None:
         """Cria um objeto para o projétil na posição atual da nave."""
         super().__init__()
         self.screen = alien_invasion_screen
@@ -22,11 +30,11 @@ class Bullet(Sprite):
         # Armazena a posição vertical como float para permitir movimentos suaves
         self.y = float(self.rect.y)
 
-    def update(self):
+    def update(self) -> None:
         """Move o projétil para cima na tela."""
         self.y -= self.settings.bullet_speed
         self.rect.y = self.y
 
-    def draw_bullet(self):
+    def draw_bullet(self) -> None:
         """Desenha o projétil na tela."""
         pygame.draw.rect(self.screen, self.color, self.rect)
