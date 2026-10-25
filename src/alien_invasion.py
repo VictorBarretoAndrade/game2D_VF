@@ -28,8 +28,8 @@ class AlienInvasion:
         self.bg_color = self.settings.bg_color
 
         # Grupos para armazenar os projéteis e os alienígenas presentes no jogo
-        self.bullets = pygame.sprite.Group()
-        self.aliens = pygame.sprite.Group()
+        self.bullets: pygame.sprite.Group[Bullet] = pygame.sprite.Group()
+        self.aliens: pygame.sprite.Group[Alien] = pygame.sprite.Group()
 
     def create_fleet(self) -> None:
         """Cria uma frota de alienígenas."""
@@ -50,9 +50,9 @@ class AlienInvasion:
                 # Cria um alienígena e o posiciona na linha
                 alien = Alien(self.screen, self.settings)
                 alien.x = alien_width + 2 * alien_width * alien_number
-                alien.rect.x = alien.x
+                alien.rect.x = int(alien.x)
                 alien.y = alien_height + 2 * alien_height * row_number
-                alien.rect.y = alien.y
+                alien.rect.y = int(alien.y)
                 self.aliens.add(alien)
 
     def run_game(self) -> None:

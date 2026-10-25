@@ -24,7 +24,9 @@ class Bullet(Sprite):
         self.color = self.settings.bullet_color
 
         # Cria um rect para o projétil em (0, 0) e depois define a posição correta
-        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
+        self.rect: pygame.Rect = pygame.Rect(
+            0, 0, self.settings.bullet_width, self.settings.bullet_height
+        )
         self.rect.midtop = self.ship.rect.midtop
 
         # Armazena a posição vertical como float para permitir movimentos suaves
@@ -33,7 +35,7 @@ class Bullet(Sprite):
     def update(self) -> None:
         """Move o projétil para cima na tela."""
         self.y -= self.settings.bullet_speed
-        self.rect.y = self.y
+        self.rect.y = int(self.y)
 
     def draw_bullet(self) -> None:
         """Desenha o projétil na tela."""

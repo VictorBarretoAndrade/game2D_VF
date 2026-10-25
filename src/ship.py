@@ -41,4 +41,4 @@ class Ship:
             self.x -= self.settings.ship_speed
 
         # Atualiza o rect da nave
-        self.rect.x = self.x
+        self.rect.x = int(self.x)
