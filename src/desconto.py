@@ -74,5 +74,5 @@ def main() -> None:
     print("Cupom VIP:", aplicar_cupom(DescontoVIP(), "DESC10"))
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
