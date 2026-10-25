@@ -1,42 +1,66 @@
-from abc import ABC, abstractmethod
+import abc
 
 
-# Classe abstrata que define o contrato para todos os tipos de desconto
-class Desconto(ABC):
-    @abstractmethod
+# ISP: interfaces específicas em vez de uma interface genérica
+class IDesconto(abc.ABC):
+    @abc.abstractmethod
     def calcular(self, valor: float) -> float:
-        pass
+        raise NotImplementedError
 
 
-# Implementação para cliente normal
-class DescontoNormal(Desconto):
+class ICupom(abc.ABC):
+    @abc.abstractmethod
+    def aplicar_cupom(self, codigo: str) -> bool:
+        raise NotImplementedError
+
+
+class IVIP(abc.ABC):
+    @abc.abstractmethod
+    def validar_usuario_vip(self, usuario: str) -> bool:
+        raise NotImplementedError
+
+
+class DescontoNormal(IDesconto):
     def calcular(self, valor: float) -> float:
         return valor * 0.1
 
 
-# Implementação para cliente VIP
-class DescontoVIP(Desconto):
+# Apenas o cliente VIP implementa cupom e validação VIP
+class DescontoVIP(IDesconto, ICupom, IVIP):
     def calcular(self, valor: float) -> float:
         return valor * 0.2
 
+    def aplicar_cupom(self, codigo: str) -> bool:
+        return True
 
-# Implementação para cliente Premium
-class DescontoPremium(Desconto):
+    def validar_usuario_vip(self, usuario: str) -> bool:
+        return usuario == "vip"
+
+
+class DescontoPremium(IDesconto):
     def calcular(self, valor: float) -> float:
         return valor * 0.3
 
 
-# LSP: qualquer subclasse de Desconto pode substituir a classe pai sem quebrar o programa
-def aplicar_desconto(desconto: Desconto, valor: float) -> float:
+# LSP: qualquer implementação de IDesconto pode ser usada sem quebrar o programa
+def aplicar_desconto(desconto: IDesconto, valor: float) -> float:
     return desconto.calcular(valor)
+
+
+def aplicar_cupom(cupom: ICupom, codigo: str) -> bool:
+    return cupom.aplicar_cupom(codigo)
 
 
 def main() -> None:
     valor = 100
 
-    print("Normal:", aplicar_desconto(DescontoNormal(), valor))
-    print("VIP:", aplicar_desconto(DescontoVIP(), valor))
-    print("Premium:", aplicar_desconto(DescontoPremium(), valor))
+    normal = DescontoNormal()
+    vip = DescontoVIP()
+
+    print("Desconto normal:", aplicar_desconto(normal, valor))
+    print("Desconto VIP:", aplicar_desconto(vip, valor))
+
+    print("Cupom VIP:", aplicar_cupom(vip, "DESC10"))
 
 
 if __name__ == "__main__":
