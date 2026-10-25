@@ -27,6 +27,20 @@ cd src
 mypy --strict .
 ```
 
+## Testes automatizados
+
+Os testes ficam na pasta `tests` e usam `pytest`, `pytest-mock` (mocks), dublês de
+teste (stubs em `tests/doubles.py`), `pytest-html` e `coverage`.
+
+```bash
+pytest -v
+pytest --html=relatorio.html
+coverage run -m pytest
+coverage report
+```
+
+> O relatório HTML e a pasta `htmlcov` não são versionados.
+
 ## Estrutura (princípios SOLID)
 
 | Arquivo | Responsabilidade |
