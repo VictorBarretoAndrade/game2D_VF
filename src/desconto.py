@@ -51,16 +51,27 @@ def aplicar_cupom(cupom: ICupom, codigo: str) -> bool:
     return cupom.aplicar_cupom(codigo)
 
 
+# DIP: Pedido depende da abstração IDesconto, e não de uma implementação concreta
+class Pedido:
+    def __init__(self, desconto: IDesconto) -> None:
+        self.desconto = desconto
+
+    def total(self, valor: float) -> float:
+        return valor - self.desconto.calcular(valor)
+
+
 def main() -> None:
     valor = 100
 
-    normal = DescontoNormal()
-    vip = DescontoVIP()
+    pedido_normal = Pedido(DescontoNormal())
+    pedido_vip = Pedido(DescontoVIP())
+    pedido_premium = Pedido(DescontoPremium())
 
-    print("Desconto normal:", aplicar_desconto(normal, valor))
-    print("Desconto VIP:", aplicar_desconto(vip, valor))
+    print("Normal:", pedido_normal.total(valor))
+    print("VIP:", pedido_vip.total(valor))
+    print("Premium:", pedido_premium.total(valor))
 
-    print("Cupom VIP:", aplicar_cupom(vip, "DESC10"))
+    print("Cupom VIP:", aplicar_cupom(DescontoVIP(), "DESC10"))
 
 
 if __name__ == "__main__":
