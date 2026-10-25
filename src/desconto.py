@@ -26,16 +26,17 @@ class DescontoPremium(Desconto):
         return valor * 0.3
 
 
+# LSP: qualquer subclasse de Desconto pode substituir a classe pai sem quebrar o programa
+def aplicar_desconto(desconto: Desconto, valor: float) -> float:
+    return desconto.calcular(valor)
+
+
 def main() -> None:
     valor = 100
 
-    normal = DescontoNormal()
-    vip = DescontoVIP()
-    premium = DescontoPremium()
-
-    print(f"Desconto Normal: R$ {normal.calcular(valor):.2f}")
-    print(f"Desconto VIP: R$ {vip.calcular(valor):.2f}")
-    print(f"Desconto Premium: R$ {premium.calcular(valor):.2f}")
+    print("Normal:", aplicar_desconto(DescontoNormal(), valor))
+    print("VIP:", aplicar_desconto(DescontoVIP(), valor))
+    print("Premium:", aplicar_desconto(DescontoPremium(), valor))
 
 
 if __name__ == "__main__":
